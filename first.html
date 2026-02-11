@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-
-
 <html lang="ru">
 <head>
     <title>BlockCode(Help)</title>
     <style>
         .container {
-            width: 400px;
+            width: 200px;
             background: lightgray;
-            padding: 10px;
+            padding: 15px;
             display: flex;     
             gap: 10px; 
-            cursor: grab;            
+            cursor: grab;  
+            margin-top: 15px; 
+            margin-left: 15px;         
         }
         .block:active {
             cursor: grabbing;
@@ -20,16 +20,24 @@
     </style>
 </head>
 <body>
-    <div class="container" draggable="true">
-        <input type="number" id="number_1" name="number_1" placeholder="here">
-        <select id="activity" name="choice">
-            <option value="plus" selected>+</option>
-            <option value="minus">-</option>
-            <option value="multiplication">*</option>
-            <option value="division">/</option>
-            <option value="remains">%</option>
-        </select>
-        <input type="number" id="number_2" name="number_2" placeholder="here">
+    <p style="font-size: 20px; padding-left: 20px;">BlockCode
+    <div style ="display: flex; gap: 10px">
+        <div style ="width: 400px; height: 600px; border: 2px solid black;">
+            <div class="container" draggable="true">
+                <input style ="width: 60px" type="number" id="number_1" name="number_1" placeholder="here">
+                <select id="activity" name="choice">
+                    <option value="plus" selected>+</option>
+                    <option value="minus">-</option>
+                    <option value="multiplication">*</option>
+                    <option value="division">/</option>
+                    <option value="remains">%</option>
+                </select>
+                <input style ="width: 60px" type="number" id="number_2" name="number_2" placeholder="here">
+            </div>
+        </div>
+        <div style ="width: 600px; height: 600px; display: flex; gap: 10px; border: 2px solid black; padding-left: 20px;">
+            <p>Put here</p>
+        </div>
     </div>
     <script>
         document.querySelectorAll('.container').forEach(container => {
