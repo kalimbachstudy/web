@@ -13,7 +13,7 @@
             margin-top: 15px; 
             margin-left: 15px;         
         }
-        .block:active {
+        .container:active {
             cursor: grabbing;
             opacity: 0.7;
         }
@@ -21,9 +21,10 @@
 </head>
 <body>
     <p style="font-size: 20px; padding-left: 20px;">BlockCode
+    
     <div style ="display: flex; gap: 10px">
         <div style ="width: 400px; height: 600px; border: 2px solid black;">
-            <div class="container" draggable="true">
+            <div class="container">
                 <input style ="width: 60px" type="number" id="number_1" name="number_1" placeholder="here">
                 <select id="activity" name="choice">
                     <option value="plus" selected>+</option>
@@ -35,16 +36,10 @@
                 <input style ="width: 60px" type="number" id="number_2" name="number_2" placeholder="here">
             </div>
         </div>
-        <div style ="width: 600px; height: 600px; display: flex; gap: 10px; border: 2px solid black; padding-left: 20px;">
+        <div class="dropzone" style ="width: 600px; height: 600px; display: flex; gap: 10px; border: 2px solid black; padding-left: 20px;">
             <p>Put here</p>
         </div>
     </div>
-    <script>
-        document.querySelectorAll('.container').forEach(container => {
-            container.addEventListener('dragstart', (e) => {
-                e.dataTransfer.setData('text/plain', 'container');
-            });
-        });
-    </script>
+    <script src="java.js"></script>
 </body>
 </html>
