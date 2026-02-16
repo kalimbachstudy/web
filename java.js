@@ -4,6 +4,7 @@
     let coorY;
 
     const drag_el = document.querySelector(".container");
+    const drzone = document.querySelector(".dropzone");
     drag_el.draggable=true;
     
     drag_el.addEventListener('dragstart', (e) =>{
@@ -11,11 +12,15 @@
         coorX=e.offsetX;
         coorY=e.offsetY;
     });
-
-    drag_el.addEventListener('dragend', (e) =>{
+    drzone.addEventListener('dragover', (e)=>{
+        e.preventDefault();
+    });
+    drzone.addEventListener('drop', (e)=>{
         drag_el.style.position = 'absolute';
         drag_el.style.top = (e.pageY - coorY) +'px';
         drag_el.style.left = (e.pageX - coorX) +'px';
-
-    });
+    })
 })();
+
+slot.addEventListener('dragover', allowDrop);
+slot.addEventListener('drop', handleDrop);
