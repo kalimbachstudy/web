@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <meta charset="UTF-8">
     <title>BlockCode(Help)</title>
     <style>
         /* позже можно будет перекинуть стили в css, 
         но сейчас, наверное, в этом нет необходимости?  */
-        .main_body{
+        main{
             display: flex; 
             gap: 10px
         }
-        .block_box{
+        #box_block{
             width: 400px; 
             height: 600px; 
             border: 2px solid black;
+            position: relative;
         }
-        .container {
+        #work_space{
+            width: 600px; 
+            height: 600px; 
+            display: flex; 
+            gap: 10px; 
+            border: 2px solid black; 
+            padding-left: 20px;
+            position: relative;
+        }
+        .block{
             width: 200px;
             background: lightgray;
             padding: 15px;
@@ -22,45 +33,32 @@
             gap: 10px; 
             cursor: grab;  
             margin-top: 15px; 
-            margin-left: 15px;         
+            margin-left: 15px;   
+            position: absolute;      
         }
-        .container:active {
+        .block.dragging{
+            opacity: 0.8;
             cursor: grabbing;
-            opacity: 0.7;
         }
-        .dropzone{
-            width: 600px; 
-            height: 600px; 
-            display: flex; 
-            gap: 10px; 
-            border: 2px solid black; 
-            padding-left: 20px;
-        }
+        
     </style>
 </head>
+
 <body>
-    <p style="font-size: 20px; padding-left: 20px;">BlockCode
+    <header>
+    <h2>CodeBlock</h2>
+    </header>
+
+    <main>
+        <section id="box_block">
+            <div class="block">Shhh</div>
+        </section>
+
+        <section id="work_space">
+        </section>
     
-    <div class = "main_body">
-        <div class = "block_box">
-            <div class="container">
-                <div class ="slot">drop here</div>
-                <select id="activity" name="choice">
-                    <option value="plus" selected>+</option>
-                    <option value="minus">-</option>
-                    <option value="multiplication">*</option>
-                    <option value="division">/</option>
-                    <option value="remains">%</option>
-                </select>
-                <div class="slot">drop here</div>
-            </div>
-        </div>
-        <div class="dropzone">
-            <p>Put here</p>
-        </div>
-        <!--хз, зачем нужен был контейнер ниже -->
-        <!-- <div draggable=true; "width: 7px; height: 4px; border: 2px solid black;"></div> -->
-    </div>
-    <script src="java.js"></script>
+        <script src="java.js"></script>
+    </main>
+
 </body>
 </html>
