@@ -10,11 +10,14 @@
         const block = e.target.closest('.block');
         if (!block) return;
 
-        e.preventDefault();
-
         const flag_box= box_block.contains(block);
         const flag_work=work_space.contains(block);
-
+        
+        if (flag_work && e.target.closest('input, select'))
+            return;
+        
+        e.preventDefault();
+        
         const rect = block.getBoundingClientRect();
         coorX=e.clientX-rect.left;
         coorY=e.clientY-rect.top; 
