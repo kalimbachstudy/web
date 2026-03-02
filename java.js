@@ -2,9 +2,10 @@
     let dragging_el=null;
     let flag_clone= false;
     let coorX=0, coorY=0;
-    
+
     const box_block=document.getElementById('box_block');
     const work_space = document.getElementById('work_space');
+    
 
     document.addEventListener('mousedown', (e)=>{
         const block = e.target.closest('.block');
@@ -59,8 +60,35 @@
         if (!dragging_el) return;
         e.preventDefault();
 
-        dragging_el.style.left = (e.clientX - coorX) + 'px';
-        dragging_el.style.top = (e.clientY - coorY) + 'px';
+        let x = e.clientX - coorX;
+        let y = e.clientY - coorY;
+        let x2 = x;
+        let y2 =y;
+        let min_dis = 10;
+        
+        const distance = 40;
+        const stick = work_space.querySelectorAll('.block.command');
+        
+        stick.forEach(target =>{
+            if(target===dragging_el) return;
+            const targetcoor = target.getBoundingClientRect();
+
+            const stX = targetcoor.left;
+            const stY = targetcoor.bottom+10;
+
+            if(Math.abs(x - stX)<distance && Math.abs(y - stY)<distance){
+            min_dis=Math.hypot(x-stX,y-stY);
+            x2 = stX;
+            y2 = stY;
+            }
+        });
+        if(min_dis<40){
+            x = x2-20;
+            y = y2-35;
+        }
+
+        dragging_el.style.left = x + 'px';
+        dragging_el.style.top = y + 'px';
     });
 
     document.addEventListener('mouseup', (e)=>{
@@ -80,8 +108,11 @@
                 dragging_el.classList.remove('dragging');
                 
                 dragging_el.style.position='absolute';
-                const left=e.clientX-coorX-work_rect.left;
-                const top=e.clientY-coorY-work_rect.top;
+
+                const cur = dragging_el.getBoundingClientRect();
+                const left = cur.left-work_rect.left;
+                const top = cur.top-work_rect.top;
+                
                 dragging_el.style.left=(left)+'px'
                 dragging_el.style.top=(top)+'px';
                 dragging_el.style.width = '';
@@ -101,10 +132,11 @@
             }
             else{
                 dragging_el.classList.remove('dragging');
+                const cur = dragging_el.getBoundingClientRect();
 
                 dragging_el.style.position='absolute';
-                const left=e.clientX-coorX-work_rect.left;
-                const top=e.clientY-coorY-work_rect.top;
+                const left=cur.left-work_rect.left;
+                const top=cur.top-work_rect.top;
                 dragging_el.style.left=(left)+'px'
                 dragging_el.style.top=(top)+'px';
                 dragging_el.style.width = ''; 
@@ -120,4 +152,54 @@
     }); 
         document.addEventListener('dragstart', (e) => e.preventDefault());
 })();
+// (function GetStick(){
+    
+//     let coorX;
+//     let coorY;
+    
+//     const distance = 60;
+//     let dragggable = false;
+//     let current = null;
+    
+//     const stick = document.querySelectorAll(".stick");
+//     const still = document.querySelectorAll(".get_stick");
+    
+//     stick.forEach(element => {
+//         element.draggable = true;
+//         element.addEventListener('mousedown',e=>{
+//             dragggable = true;
+//             e.preventDefault();
+//             current=element;
+//             coorX = e.clientX - element.offsetLeft;
+//             coorY = e.clientY - element.offsetTop;
+//         });
+//     });
+    
+//     document.addEventListener('mousemove',e=>{
+//         if(!dragggable) return;
+//         e.preventDefault();
+//         let x = e.clientX - coorX;
+//         let y = e.clientY - coorY;
+
+//         const target = still.getBoundingClientRect();
+//         // const area = document.getElementById('area').getBoundingClientRect();
+
+//         const still_x = still.offsetRight;
+//         const still_y = still.offsetTop;
+
+//         if(Math.abs(x - still_x)<distance && Math.abs(y - still_y)<distance){
+//             x = still_x;
+//             y = still_y;
+//         }
+//         current.style.left = x +'px';
+//         current.style.top = y +'px';
+//     });
+//     document.addEventListener('mouseup', e=>{
+//         dragggable = false;
+//         current=null;
+//     });
+//     active_el.addEventListener('dragstart', e => {
+//         e.preventDefault();
+//     });
+// })();
     
