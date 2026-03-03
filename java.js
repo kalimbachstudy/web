@@ -84,7 +84,7 @@
         });
         if(min_dis<40){
             x = x2-20;
-            y = y2-35;
+            y = y2-39;
         }
 
         dragging_el.style.left = x + 'px';
