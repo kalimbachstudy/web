@@ -67,7 +67,7 @@
         if (!dragging_el) return;
 
         e.preventDefault();
-
+        
         const elements=document.elementsFromPoint(e.clientX, e.clientY);
         el_slot=null;
         for (let el of elements){
