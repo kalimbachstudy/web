@@ -68,7 +68,34 @@
 
         e.preventDefault();
 
-        const mouseX=e.clientX;
+        const elements=document.elementsFromPoint(e.clientX, e.clientY);
+        el_slot=null;
+        for (let el of elements){
+          if (work_space.contains(el) && el.classList.contains('slot') 
+            && !dragging_el.contains(el) && el.children.length==0){
+            el_slot=el;
+            break;
+          }
+        }
+        
+        if (el_slot){
+          dragging_el.style.position='';
+          dragging_el.style.left='';
+          dragging_el.style.top='';
+          dragging_el.style.width='';
+          dragging_el.style.height='';
+          dragging_el.classList.remove('dragging');
+
+        
+
+          el_slot.appendChild(dragging_el);
+
+          dragging_el=null;
+          flag_clone=false;
+          return;
+        }
+        else{
+          const mouseX=e.clientX;
         const work_rect=work_space.getBoundingClientRect();
         const box_rect=box_block.getBoundingClientRect();
 
@@ -114,6 +141,8 @@
             work_space.appendChild(dragging_el);
           }
         }
+      }
+
 
         dragging_el=null;
         flag_clone=false;
