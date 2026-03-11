@@ -109,8 +109,14 @@
             select{
                 background-color: #f7a751cf;                
             }
-            position: relative;
-            height: 150px;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column; 
+            align-items: flex-start;
+            gap: 15px;              
+            width: fit-content;
+            min-width: 300px;  
+            
         }
 
         #work_space > .block{
@@ -139,10 +145,36 @@
             border: 2px dashed rgba(91, 31, 92, 0.568);
         }
         .slot .block {
-    padding: 4px 10px 4px 4px;      
-    margin: 0;
-}
+            padding: 4px 10px 4px 4px;      
+            margin: 0;
+        }
+        .then-section, .else-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            padding: 10px 0;
+        }
 
+        .then-keyword, .else-keyword {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            min-width: 60px;
+            text-align: center;
+        }
+        .if-part{
+            display: flex;
+            align-items: center;
+            position: relative;
+            gap: 10px;
+        }
+        .if-part, .then-section, .else-section{
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -195,21 +227,28 @@
             </div>
             
             <div class="block command" data-type="if">
-                <span style="position: sticky; top: 10px">Если</span>
-                <div class="slot"></div>
-                <select>
-                    <option>></option>
-                    <option><</option>
-                    <option>==</option>
-                    <option>!=</option>
-                    <option>>=</option>
-                    <option><=</option>
-                </select>
-                <div class="slot"></div>
-                <span style="position: relative; top: 50px; left: -250px">то</span>
-                <div class="slot" style="position: relative; top: 50px; left: -220px"></div>
-                <span style="position: relative; top: 95px; left: -360px">иначе</span>
-                <div class="slot" style="position: relative; top: 95px; left: -350px"></div>
+                <div class="if-part">
+                    <span>Если</span>
+                    <div class="slot"></div>
+                    <select>
+                        <option>></option>
+                        <option><</option>
+                        <option>==</option>
+                        <option>!=</option>
+                        <option>>=</option>
+                        <option><=</option>
+                    </select>
+                    <div class="slot"></div>
+                </div>
+                <div class="then-section">
+                    <span class="then-keyword">то</span>
+                    <div class="slot"></div>
+                </div>
+                
+                <div class="else-section">
+                    <span class="else-keyword">иначе</span>
+                    <div class="slot"></div>
+                </div>
             </div>
             
         </section>
