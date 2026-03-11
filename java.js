@@ -2,6 +2,7 @@
     let dragging_el=null;
     let flag_clone= false;
     let coorX=0, coorY=0;
+    let group_to_drag = [];
     
     const box_block=document.getElementById('box_block');
     const work_space = document.getElementById('work_space');
@@ -83,7 +84,7 @@
         });
         if(min_dis<40){
             x = x2-20;
-            y = y2-39;
+            y = y2-35;
         }
 
         dragging_el.style.left = x + 'px';
@@ -98,84 +99,84 @@
         const elements=document.elementsFromPoint(e.clientX, e.clientY);
         el_slot=null;
         for (let el of elements){
-          if (work_space.contains(el) && el.classList.contains('slot') 
-            && !dragging_el.contains(el) && el.children.length==0){
-            el_slot=el;
-            break;
-          }
+            if (work_space.contains(el) && el.classList.contains('slot') 
+                && !dragging_el.contains(el) && el.children.length==0){
+                el_slot=el;
+                break;
+            }
         }
         
         if (el_slot){
-          dragging_el.style.position='';
-          dragging_el.style.left='';
-          dragging_el.style.top='';
-          dragging_el.style.width='';
-          dragging_el.style.height='';
-          dragging_el.classList.remove('dragging');
+            dragging_el.style.position='';
+            dragging_el.style.left='';
+            dragging_el.style.top='';
+            dragging_el.style.width='';
+            dragging_el.style.height='';
+            dragging_el.classList.remove('dragging');
 
-        
+            
 
-          el_slot.appendChild(dragging_el);
+            el_slot.appendChild(dragging_el);
 
-          dragging_el=null;
-          flag_clone=false;
-          return;
+            dragging_el=null;
+            flag_clone=false;
+            return;
         }
         else{
-          const mouseX=e.clientX;
-        const work_rect=work_space.getBoundingClientRect();
-        const box_rect=box_block.getBoundingClientRect();
+            const mouseX=e.clientX;
+            const work_rect=work_space.getBoundingClientRect();
+            const box_rect=box_block.getBoundingClientRect();
 
-        const flag_box=mouseX<box_rect.right;
-        const flag_work=mouseX>work_rect.left;
+            const flag_box=mouseX<box_rect.right;
+            const flag_work=mouseX>work_rect.left;
 
-        if (flag_clone){
-            if (flag_work){
-                dragging_el.classList.remove('dragging');
-                
-                dragging_el.style.position='absolute';
+            if (flag_clone){
+                if (flag_work){
+                    dragging_el.classList.remove('dragging');
+                    
+                    dragging_el.style.position='absolute';
 
-                const cur = dragging_el.getBoundingClientRect();
-                const left = cur.left-work_rect.left;
-                const top = cur.top-work_rect.top;
-                
-                dragging_el.style.left=(left)+'px'
-                dragging_el.style.top=(top)+'px';
-                dragging_el.style.width = '';
-                dragging_el.style.height = '';
-                
+                    const cur = dragging_el.getBoundingClientRect();
+                    const left = cur.left-work_rect.left;
+                    const top = cur.top-work_rect.top;
+                    
+                    dragging_el.style.left=(left)+'px'
+                    dragging_el.style.top=(top)+'px';
+                    dragging_el.style.width = '';
+                    dragging_el.style.height = '';
+                    
 
-                work_space.appendChild(dragging_el);
+                    work_space.appendChild(dragging_el);
+                }
+                else{
+                    dragging_el.remove();
+                }
             }
             else{
-                dragging_el.remove();
+                if (flag_box){
+                    dragging_el.remove();
+
+                }
+                else{
+                    dragging_el.classList.remove('dragging');
+                    const cur = dragging_el.getBoundingClientRect();
+
+                    dragging_el.style.position='absolute';
+                    const left=cur.left-work_rect.left;
+                    const top=cur.top-work_rect.top;
+                    dragging_el.style.left=(left)+'px'
+                    dragging_el.style.top=(top)+'px';
+                    dragging_el.style.width = ''; 
+                    dragging_el.style.height = '';
+
+                    
+                    work_space.appendChild(dragging_el);
+                }
             }
+
+            dragging_el=null;
+            flag_clone=false;
         }
-        else{
-            if (flag_box){
-                dragging_el.remove();
-
-            }
-            else{
-                dragging_el.classList.remove('dragging');
-                const cur = dragging_el.getBoundingClientRect();
-
-                dragging_el.style.position='absolute';
-                const left=cur.left-work_rect.left;
-                const top=cur.top-work_rect.top;
-                dragging_el.style.left=(left)+'px'
-                dragging_el.style.top=(top)+'px';
-                dragging_el.style.width = ''; 
-                dragging_el.style.height = '';
-
-                
-                work_space.appendChild(dragging_el);
-            }
-        }
-
-        dragging_el=null;
-        flag_clone=false;
-    }
     }); 
         document.addEventListener('dragstart', (e) => e.preventDefault());
 })();

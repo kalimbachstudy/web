@@ -31,16 +31,20 @@
             grid-area: block; 
             /* background-color: #0e0426; */
             /* background-color: #22133b; */
-           background-color:hsla(290,68%,10%,0.96);
-           background-image:
-           radial-gradient(at 58% 43%, hsla(329,58%,22%,0.79) 0px, transparent 50%),
-           radial-gradient(at 80% 75%, hsla(248,72%,9%,1) 0px, transparent 50%),
-           radial-gradient(at 21% 38%, hsla(277,64%,9%,0.97) 0px, transparent 50%),
-           radial-gradient(at 77% 22%, hsla(264,64%,15%,0.98) 0px, transparent 50%),
-           radial-gradient(at 55% 62%, hsla(355,10%,60%,0.51) 0px, transparent 50%);
-           
-           border-right: 3px solid #6b3545;
-           position: relative;
+            background-color:hsla(290,68%,10%,0.96);
+            background-image:
+            radial-gradient(at 58% 43%, hsla(329,58%,22%,0.79) 0px, transparent 50%),
+            radial-gradient(at 80% 75%, hsla(248,72%,9%,1) 0px, transparent 50%),
+            radial-gradient(at 21% 38%, hsla(277,64%,9%,0.97) 0px, transparent 50%),
+            radial-gradient(at 77% 22%, hsla(264,64%,15%,0.98) 0px, transparent 50%),
+            radial-gradient(at 55% 62%, hsla(355,10%,60%,0.51) 0px, transparent 50%);
+            
+            border-right: 3px solid #6b3545;
+            position: relative;
+
+            overflow-y: auto;
+            scrollbar-width: none; 
+            -ms-overflow-style: none; 
 
         }
         body > #work_space{
@@ -105,6 +109,8 @@
             select{
                 background-color: #f7a751cf;                
             }
+            position: relative;
+            height: 150px;
         }
 
         #work_space > .block{
@@ -145,8 +151,9 @@
     <h2>CodeBlock</h2>
     </header>
 
-    
         <section id="box_block">
+            <div class="block command" id="start" style="width: 40px;">Start</div>
+            <div class="block command" id="end" style="width: 40px;">End</div>
             <div class="block command" data-type="declare">
                 <span>Объявить</span>
                 <input type="text" placeholder="переменная">                
@@ -160,9 +167,9 @@
                 <div class="slot"></div>
             </div>
 
-            <div class="block expression" data-type="var">
+            <div class="block expression" data-type="var" style="width: 90px;">
                 <!-- <select></select>  ??? -->
-                <input type="text" placeholder="переменная">
+                <input type="text" placeholder="переменная" style="width: 80px;">
             </div>
 
             <div class="block expression" data-type="number">
@@ -188,7 +195,7 @@
             </div>
             
             <div class="block command" data-type="if">
-                <span>Если</span>
+                <span style="position: sticky; top: 10px">Если</span>
                 <div class="slot"></div>
                 <select>
                     <option>></option>
@@ -199,6 +206,10 @@
                     <option><=</option>
                 </select>
                 <div class="slot"></div>
+                <span style="position: relative; top: 50px; left: -250px">то</span>
+                <div class="slot" style="position: relative; top: 50px; left: -220px"></div>
+                <span style="position: relative; top: 95px; left: -360px">иначе</span>
+                <div class="slot" style="position: relative; top: 95px; left: -350px"></div>
             </div>
             
         </section>
