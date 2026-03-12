@@ -95,13 +95,29 @@
 
         e.preventDefault();
         
+        
         const elements=document.elementsFromPoint(e.clientX, e.clientY);
         el_slot=null;
         for (let el of elements){
           if (work_space.contains(el) && el.classList.contains('slot') 
-            && !dragging_el.contains(el) && el.children.length==0){
-            el_slot=el;
-            break;
+            && !dragging_el.contains(el)){
+            const slot_type=el.dataset.slotType;
+
+            const flag_command=dragging_el.classList.contains("command");
+            const flag_expression=dragging_el.classList.contains("expression");
+
+            let flag_match=false;
+            if (slot_type=="commands" && flag_command) flag_match=true;
+            if (slot_type=="expression" && flag_expression) flag_match=true;
+
+            if (flag_match){
+                if(slot_type=="expression" && el.children.length>0)
+                    break;
+                else{
+                el_slot=el;
+                break;
+                }
+            }
           }
         }
         
