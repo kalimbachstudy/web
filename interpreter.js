@@ -149,9 +149,12 @@ function calculation(a, op, b) {
 
 
 document.getElementById("btnRun").addEventListener("click", () => {
-    runCode();
+    
     const coutt = document.getElementById("cout");
-    coutt.textContent="";
+    coutt.textContent = "";
+    
+    runCode();
+    
     for (let varName in variables) {
         if (variables.hasOwnProperty(varName)) {
             coutt.textContent = coutt.textContent + " " + varName + "=" + variables[varName];
