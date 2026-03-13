@@ -10,9 +10,11 @@ function sortedBlock() {
 }
 
 
-const variables = {};
+let variables = {};
 
 function runCode() {
+    console.log("запуск программы")
+    variables = {};
     const commands = sortedBlock();
 
     for (let c of commands)
@@ -116,9 +118,15 @@ function calculation(a, op, b) {
 
 
 document.getElementById("btnRun").addEventListener("click", () => {
-    runCode();
+    const check = checkCode();
+    if (check)
+        runCode();
+    else {
+        console.log("есть ошибки");
+    }
 })
 
+let variablesCheck = {};
 
 function checkBlock(block) {
     let flag_valid = true;
@@ -133,9 +141,25 @@ function checkBlock(block) {
         return true;
     }
 
-    if (type == "declare" || type == "var") {
+    if (type == "declare") {
         const input = block.querySelector("input[type='text']");
-        if (input.value.trim() == "") {
+        const varName = input.value.trim();
+        if (varName == "") {
+            input.classList.add("error");
+            flag_valid = false;
+        }
+        else {
+            variablesCheck[varName] = 0;
+        }
+    }
+    else if (type == "var") {
+        const input = block.querySelector("input[type='text']");
+        const varName = input.value.trim();
+        if (varName == "") {
+            input.classList.add("error");
+            flag_valid = false;
+        }
+        else if (!(varName in variablesCheck)) {
             input.classList.add("error");
             flag_valid = false;
         }
@@ -151,7 +175,12 @@ function checkBlock(block) {
 
     else if (type == "give") {
         const input = block.querySelector("input[type='text']");
-        if (input.value.trim() == "") {
+        const varName = input.value.trim();
+        if (varName == "") {
+            input.classList.add("error");
+            flag_valid = false;
+        }
+        else if (!(varName in variablesCheck)) {
             input.classList.add("error");
             flag_valid = false;
         }
@@ -166,7 +195,7 @@ function checkBlock(block) {
     }
 
     else if (type == "if") {
-        const conditionSlots = block.querySelectorAll(".condition.slot");
+        const conditionSlots = block.querySelectorAll(".condition .slot");
         if (!checkSlot(conditionSlots[0])) flag_valid = false;
         if (!checkSlot(conditionSlots[1])) flag_valid = false;
 
@@ -179,6 +208,8 @@ function checkBlock(block) {
 }
 
 function checkCode() {
+    variablesCheck = {};
+
     const workspace = document.getElementById("work_space");
     const errorElements = workspace.querySelectorAll(".error");
     errorElements.forEach(e => e.classList.remove("error"));
