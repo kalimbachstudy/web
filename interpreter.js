@@ -1,6 +1,4 @@
 function sortedBlock() {
-    // const work = document.getElementById("work_space");
-    // const commands = Array.from(work.querySelectorAll(".block.command"));
     const commands = Array.from(document.querySelectorAll("#work_space > .block.command"))
 
     return commands.sort((a, b) => {
@@ -149,7 +147,9 @@ document.getElementById("btnRun").addEventListener("click", () => {
     if (check)
         runCode();
     else {
-        console.log("есть ошибки");
+        const newText = document.createElement('p');
+        newText.textContent = `Ошибки есть! :(`;
+        document.querySelector("footer").appendChild(newText);
     }
 })
 
@@ -164,8 +164,8 @@ function checkBlock(block) {
             slot.classList.add("error");
             return false;
         }
-        checkBlock(slot.children[0]);
-        return true;
+
+        return checkBlock(slot.children[0]);
     }
 
     if (type == "declare") {
@@ -253,8 +253,14 @@ function checkCode() {
 }
 
 document.getElementById("btnCheck").addEventListener("click", () => {
-    if (checkCode())
-        console.log("Ошибок нет")
-    else
-        console.log("есть ошибки")
+    if (checkCode()) {
+        const newText = document.createElement('p');
+        newText.textContent = `Ошибок нет! :)`;
+        document.querySelector("footer").appendChild(newText);
+    }
+    else {
+        const newText = document.createElement('p');
+        newText.textContent = `Ошибки есть! :(`;
+        document.querySelector("footer").appendChild(newText);
+    }
 })
