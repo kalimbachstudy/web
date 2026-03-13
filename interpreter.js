@@ -53,21 +53,25 @@ function blockGive(block) {
 }
 
 function blockIf(block) {
-    const slots = block.querySelectorAll(".slot");
-    const left = runExpression(slots[0].firstElementChild);
-    const right = runExpression(slots[1].firstElementChild);
+    const conditionSlots = block.querySelectorAll(".slot");
+    const left = runExpression(conditionSlots[0].firstElementChild);
+    const right = runExpression(conditionSlots[1].firstElementChild);
     const op = block.querySelector("select").value;
 
     const condition = compare(left, op, right);
 
+    const commandSlots = block.querySelectorAll(".slot.command-slot");
     if (condition) {
-        const slot = block.querySelector(".slot.command-slot");
-        if (slot) {
-            const commands = slot.children;
-            for (let c of commands)
-                runCommands(c);
-        }
+        const commands = commandSlots[0].children;
+        for (let c of commands)
+            runCommands(c);
     }
+    else {
+        const commands = commandSlots[1].children;
+        for (let c of commands)
+            runCommands(c);
+    }
+
 
 }
 
@@ -199,8 +203,11 @@ function checkBlock(block) {
         if (!checkSlot(conditionSlots[0])) flag_valid = false;
         if (!checkSlot(conditionSlots[1])) flag_valid = false;
 
-        const commandSlot = block.querySelector(".slot.command-slot");
-        for (let c of commandSlot.children) {
+        const commandSlots = block.querySelectorAll(".slot.command-slot");
+        for (let c of commandSlots[0].children) {
+            if (!checkBlock(c)) flag_valid = false;
+        }
+        for (let c of commandSlots[1].children) {
             if (!checkBlock(c)) flag_valid = false;
         }
     }

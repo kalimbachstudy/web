@@ -262,12 +262,12 @@
 
     <section id="box_block">
         <div class="block command" data-type="declare">
-            <span>Объявить</span>
+            Объявить
             <input type="text" placeholder="переменная">
         </div>
 
         <div class="block command" data-type="give">
-            <span>Присвоить</span>
+            Присвоить
             <!-- <select></select>  ??? -->
             <input type="text" placeholder="переменная">
             <span>=</span>
@@ -303,7 +303,7 @@
 
         <div class="block command" data-type="if">
             <div class="condition">
-                <span>Если</span>
+                Если
                 <div class="slot" data-slot-type="expression"></div>
                 <select>
                     <option value=">">></option>
@@ -316,6 +316,9 @@
                 <div class="slot" data-slot-type="expression"></div>
             </div>
 
+            то
+            <div class="slot command-slot" data-slot-type="commands"></div>
+            иначе
             <div class="slot command-slot" data-slot-type="commands"></div>
         </div>
 
