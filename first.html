@@ -88,6 +88,10 @@
             cursor: grab;
         }
 
+        .block:hover {
+            transform: scale(1.05);
+        }
+
         .block.dragging {
             opacity: 0.6;
             cursor: grabbing;
@@ -225,6 +229,14 @@
             border: 2px solid #f7a751;
             color: #f7c086;
             font-weight: 600;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.9);
         }
 
         #btnCheck {
