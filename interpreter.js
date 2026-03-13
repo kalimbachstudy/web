@@ -1,6 +1,7 @@
 function sortedBlock() {
-    const work = document.getElementById("work_space");
-    const commands = Array.from(work.querySelectorAll(".block.command"));
+    // const work = document.getElementById("work_space");
+    // const commands = Array.from(work.querySelectorAll(".block.command"));
+    const commands = Array.from(document.querySelectorAll("#work_space > .block.command"))
 
     return commands.sort((a, b) => {
         let topA = parseFloat(a.style.top) || 0;
@@ -11,8 +12,7 @@ function sortedBlock() {
 
 function clearFooter() {
     const footer = document.querySelector("footer");
-    for (let c of footer.children)
-        c.remove();
+    footer.innerHTML = '';
 }
 
 let variables = {};
