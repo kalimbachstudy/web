@@ -93,34 +93,11 @@ function runExpression(block) {
     }
     else if (type == "operation") {
         const slots = block.querySelectorAll(".slot");
-
-        let leftName = "";
-        let rightName = "";
-        
-        if (slots[0].firstElementChild && slots[0].firstElementChild.dataset.type === "var") {
-            const input = slots[0].firstElementChild.querySelector("input[type='text']");
-            if (input) leftName = input.value.trim();
-        } else if (slots[0].firstElementChild && slots[0].firstElementChild.dataset.type === "number") {
-            const input = slots[0].firstElementChild.querySelector("input[type='number']");
-            if (input) leftName = input.value;
-        }
-        
-        if (slots[1].firstElementChild && slots[1].firstElementChild.dataset.type === "var") {
-            const input = slots[1].firstElementChild.querySelector("input[type='text']");
-            if (input) rightName = input.value.trim();
-        } else if (slots[1].firstElementChild && slots[1].firstElementChild.dataset.type === "number") {
-            const input = slots[1].firstElementChild.querySelector("input[type='number']");
-            if (input) rightName = input.value;
-        }
-        
         const left = runExpression(slots[0].firstElementChild);
         const right = runExpression(slots[1].firstElementChild);
         const op = block.querySelector("select").value;
         
         const result = calculation(left, op, right);
-        // const new_var = leftName + "_+_" + rightName;
-        // variables[new_var] = result;
-
         return result;
     }
 }
