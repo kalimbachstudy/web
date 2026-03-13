@@ -9,16 +9,29 @@ function sortedBlock() {
     });
 }
 
+function clearFooter() {
+    const footer = document.querySelector("footer");
+    for (let c of footer.children)
+        c.remove();
+}
 
 let variables = {};
 
 function runCode() {
-    console.log("запуск программы")
     variables = {};
+    clearFooter();
     const commands = sortedBlock();
+
+    const newText1 = document.createElement('p');
+    newText1.textContent = `Старт программы`;
+    document.querySelector("footer").appendChild(newText1);
 
     for (let c of commands)
         runCommands(c);
+
+    const newText2 = document.createElement('p');
+    newText2.textContent = `Конец программы`;
+    document.querySelector("footer").appendChild(newText2);
 }
 
 function runCommands(block) {
@@ -36,20 +49,30 @@ function runCommands(block) {
 function blockDeclare(block) {
     const input = block.querySelector("input[type='text']");
     const varName = input.value.trim();
-    if (varName)
+    if (varName) {
         variables[varName] = 0;
+
+        const newText = document.createElement('p');
+        newText.textContent = `Объявлена переменная ${varName}`;
+        document.querySelector("footer").appendChild(newText);
+    }
 }
 
 function blockGive(block) {
     const input = block.querySelector("input[type='text']");
     const varName = input.value.trim();
     const slot = block.querySelector(".slot");
-    if (!slot) return;
 
     const expr = slot.firstElementChild;
     const value = runExpression(expr);
-    if (varName)
+    if (varName) {
         variables[varName] = value;
+
+        const newText = document.createElement('p');
+        newText.textContent = `${varName} = ${value}`;
+        document.querySelector("footer").appendChild(newText);
+    }
+
 }
 
 function blockIf(block) {
@@ -216,6 +239,7 @@ function checkBlock(block) {
 
 function checkCode() {
     variablesCheck = {};
+    clearFooter();
 
     const workspace = document.getElementById("work_space");
     const errorElements = workspace.querySelectorAll(".error");
