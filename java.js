@@ -107,11 +107,11 @@
                 const flag_expression = dragging_el.classList.contains("expression");
 
                 let flag_match = false;
-                if (slot_type == "commands" && flag_command) flag_match = true;
-                if (slot_type == "expression" && flag_expression) flag_match = true;
+                if (slot_type === "commands" && flag_command) flag_match = true;
+                if (slot_type === "expression" && flag_expression) flag_match = true;
 
                 if (flag_match) {
-                    if (slot_type == "expression" && el.children.length > 0)
+                    if (slot_type === "expression" && el.children.length > 0)
                         break;
                     else {
                         el_slot = el;
