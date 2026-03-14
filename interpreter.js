@@ -35,11 +35,11 @@ function runCode() {
 function runCommands(block) {
     const type = block.dataset.type;
 
-    if (type == "declare")
+    if (type === "declare")
         blockDeclare(block);
-    else if (type == "give")
+    else if (type === "give")
         blockGive(block);
-    else if (type == "if")
+    else if (type === "if")
         blockIf(block);
     // else{????}
 }
@@ -97,28 +97,28 @@ function blockIf(block) {
 }
 
 function compare(a, op, b) {
-    if (op == ">") return a > b;
-    else if (op == "<") return a < b;
-    else if (op == "==") return a == b;
-    else if (op == "!=") return a != b;
-    else if (op == ">=") return a >= b;
-    else if (op == "<=") return a <= b;
+    if (op === ">") return a > b;
+    else if (op === "<") return a < b;
+    else if (op === "==") return a === b;
+    else if (op === "!=") return a !== b;
+    else if (op === ">=") return a >= b;
+    else if (op === "<=") return a <= b;
 }
 
 function runExpression(block) {
     const type = block.dataset.type;
 
-    if (type == "number") {
+    if (type === "number") {
         const input = block.querySelector("input[type='number']");
         return parseFloat(input.value) || 0;
     }
-    else if (type == "var") {
+    else if (type === "var") {
         const input = block.querySelector("input[type='text']");
         const varName = input.value.trim();
         if (variables[varName] !== undefined)
             return variables[varName];
     }
-    else if (type == "operation") {
+    else if (type === "operation") {
         const slots = block.querySelectorAll(".slot");
         const left = runExpression(slots[0].firstElementChild);
         const right = runExpression(slots[1].firstElementChild);
@@ -128,16 +128,16 @@ function runExpression(block) {
     }
 }
 function calculation(a, op, b) {
-    if (op == "plus") return a + b;
-    else if (op == "minus") return a - b;
-    else if (op == "multiplication") return a * b;
-    else if (op == "division") {
-        if (b == 0)
+    if (op === "plus") return a + b;
+    else if (op === "minus") return a - b;
+    else if (op === "multiplication") return a * b;
+    else if (op === "division") {
+        if (b === 0)
             return 0;
         else
             return a / b;
     }
-    else if (op == "remains") return a % b;
+    else if (op === "remains") return a % b;
 }
 
 
@@ -160,7 +160,7 @@ function checkBlock(block) {
     const type = block.dataset.type;
 
     function checkSlot(slot) {
-        if (slot.children.length == 0) {
+        if (slot.children.length === 0) {
             slot.classList.add("error");
             return false;
         }
@@ -168,10 +168,10 @@ function checkBlock(block) {
         return checkBlock(slot.children[0]);
     }
 
-    if (type == "declare") {
+    if (type === "declare") {
         const input = block.querySelector("input[type='text']");
         const varName = input.value.trim();
-        if (varName == "") {
+        if (varName === "") {
             input.classList.add("error");
             flag_valid = false;
         }
@@ -179,10 +179,10 @@ function checkBlock(block) {
             variablesCheck[varName] = 0;
         }
     }
-    else if (type == "var") {
+    else if (type === "var") {
         const input = block.querySelector("input[type='text']");
         const varName = input.value.trim();
-        if (varName == "") {
+        if (varName === "") {
             input.classList.add("error");
             flag_valid = false;
         }
@@ -192,18 +192,18 @@ function checkBlock(block) {
         }
     }
 
-    else if (type == "number") {
+    else if (type === "number") {
         const input = block.querySelector("input[type='number']");
-        if (input.value.trim() == "") {
+        if (input.value.trim() === "") {
             input.classList.add("error");
             flag_valid = false;
         }
     }
 
-    else if (type == "give") {
+    else if (type === "give") {
         const input = block.querySelector("input[type='text']");
         const varName = input.value.trim();
-        if (varName == "") {
+        if (varName === "") {
             input.classList.add("error");
             flag_valid = false;
         }
@@ -215,13 +215,13 @@ function checkBlock(block) {
         if (!checkSlot(slot)) flag_valid = false;
     }
 
-    else if (type == "operation") {
+    else if (type === "operation") {
         const slots = block.querySelectorAll(".slot");
         if (!checkSlot(slots[0])) flag_valid = false;
         if (!checkSlot(slots[1])) flag_valid = false;
     }
 
-    else if (type == "if") {
+    else if (type === "if") {
         const conditionSlots = block.querySelectorAll(".condition .slot");
         if (!checkSlot(conditionSlots[0])) flag_valid = false;
         if (!checkSlot(conditionSlots[1])) flag_valid = false;
