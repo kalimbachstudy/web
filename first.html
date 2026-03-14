@@ -18,17 +18,21 @@
             grid-template-areas:
                 "head head"
                 "block work"
-                "foot foot";
+                "block foot";
             grid-template-rows: 70px 1fr 20%;
             grid-template-columns: 20% 1fr;
+            margin: 0px;
         }
 
         body>header {
             grid-area: head;
-            display: flex;
-            /* background-color: #21263a; */
+            display: grid;
+            grid-template-areas: "name check run";
+            grid-template-columns: 80% 10% 10%;
+
             background-color: #230c2d;
             color: #f7c086;
+            padding: 0px 12px 0px 12px;
         }
 
         body>#box_block {
@@ -59,11 +63,15 @@
                 radial-gradient(at 0% 0%, hsla(24, 50%, 48%, 0.4) 0px, transparent 50%);
 
             position: relative;
+            overflow: auto;
         }
 
         body>footer {
             grid-area: foot;
             background-color: #230c2d;
+            color: #f7c086;
+            overflow: auto;
+            padding: 0px 12px 0px 12px;
         }
 
         .block {
@@ -81,6 +89,10 @@
             align-items: center;
 
             cursor: grab;
+        }
+
+        #box_block>.block:hover {
+            transform: scale(1.05);
         }
 
         .block.dragging {
@@ -122,7 +134,7 @@
         }
 
 
-        .block[data-type="if"] .condition {
+        div[data-type="if"] .condition {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -130,7 +142,7 @@
 
         }
 
-        .block[data-type="if"] .slot.command-slot {
+        div[data-type="if"] .slot.command-slot {
             display: flex;
             flex-direction: column;
             gap: 2px;
@@ -143,7 +155,7 @@
             padding: 4px;
         }
 
-        .block[data-type="if"] .slot.command-slot>.block {
+        div[data-type="if"] .slot.command-slot>.block {
             margin: 0 0 4px 0;
             width: 100%;
             box-sizing: border-box;
@@ -213,6 +225,32 @@
         .slot.error {
             border: 2px solid rgb(55, 15, 255);
         }
+
+        button {
+            margin: 8px;
+            border-radius: 5px;
+            border: 2px solid #f7a751;
+            color: #f7c086;
+            font-weight: 600;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.9);
+        }
+
+        #btnCheck {
+            grid-area: check;
+            background-color: #9e35b3;
+        }
+
+        #btnRun {
+            grid-area: run;
+            background-color: #4e278c;
+        }
     </style>
 </head>
 
@@ -227,12 +265,12 @@
 
     <section id="box_block">
         <div class="block command" data-type="declare">
-            <span>Объявить</span>
+            Объявить
             <input type="text" placeholder="переменная">
         </div>
 
         <div class="block command" data-type="give">
-            <span>Присвоить</span>
+            Присвоить
             <!-- <select></select>  ??? -->
             <input type="text" placeholder="переменная">
             <span>=</span>
@@ -268,21 +306,22 @@
 
         <div class="block command" data-type="if">
             <div class="condition">
-                <span>Если</span>
+                Если
                 <div class="slot" data-slot-type="expression"></div>
                 <select>
                     <option value=">">></option>
-                    <option value="<">
-                        << /option>
+                    <option value="<">&lt</option>
                     <option value="==">==</option>
                     <option value="!=">!=</option>
                     <option value=">=">>=</option>
-                    <option value="<=">
-                        <=< /option>
+                    <option value="<=">&lt=</option>
                 </select>
                 <div class="slot" data-slot-type="expression"></div>
             </div>
 
+            то
+            <div class="slot command-slot" data-slot-type="commands"></div>
+            иначе
             <div class="slot command-slot" data-slot-type="commands"></div>
         </div>
 
@@ -290,11 +329,9 @@
 
     <section id="work_space">
     </section>
-    
+
     <footer>
-        <section>
-            <span id="cout" style="color: #f7a751;"></span>
-        </section>
+
     </footer>
 
     <script src="java.js"></script>
